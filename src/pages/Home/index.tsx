@@ -1,22 +1,5 @@
 import { useState, useEffect } from "react";
-
-async function exportCryptoKey(key: CryptoKey) {
-  const jwk = await window.crypto.subtle.exportKey("jwk", key);
-  return JSON.stringify(jwk);
-}
-
-async function generaChiave() {
-  const key = await window.crypto.subtle.generateKey(
-    {
-      name: "AES-GCM",
-      length: 256,
-    },
-    true,
-    ["encrypt", "decrypt"],
-  );
-
-  return key
-}
+import { generaChiave, esportaCryptoKey } from "@/lib/crypto";
 
 function Home() {
   const [chiave, setChiave] = useState<string | null>();
@@ -24,7 +7,7 @@ function Home() {
   useEffect(() => {
     async function init() {
       const cryptoKey  = await generaChiave();
-      const jwkString = await exportCryptoKey(cryptoKey);
+      const jwkString = await esportaCryptoKey(cryptoKey);
       const jwk = JSON.parse(jwkString);
       const key = jwk.k;
       setChiave(key);
