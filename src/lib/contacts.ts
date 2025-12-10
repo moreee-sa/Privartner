@@ -44,7 +44,7 @@ export function addContact(name: string, description: string, jwkPair: CryptoKey
 export function addContactKey(x: string, y: string) {
   const crv = "P-384";
   const ext = true;
-  const key_ops = ["verfy"];
+  const key_ops = ["verify"];
   const kty = "EC";
 
   const contactKey: ContactKey = {
