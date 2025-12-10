@@ -1,44 +1,47 @@
 import { useState, useEffect } from "react";
-import { generaChiave, esportaCryptoKey } from "@/lib/crypto";
+import { generaCoppiaChiavi, esportaCryptoKeyPair, getPublicKeyStringXY, saveKeyPair} from "@/lib/crypto";
 import { THEME } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import KeyDisplay from "@/components/Home/KeyDisplay";
 import AddContact from "@/components/Home/AddContact";
 
 async function init() {
-  const cryptoKey  = await generaChiave();
-  const jwkString = await esportaCryptoKey(cryptoKey);
-  const jwk = JSON.parse(jwkString);
-  const key = jwk.k;
-  return key;
+  const cryptoKeyPair = await generaCoppiaChiavi();
+  const jwkPair = await esportaCryptoKeyPair(cryptoKeyPair)
+  const publicKeyString = await getPublicKeyStringXY(jwkPair)
+  const encodedKey = encodeURIComponent(publicKeyString);
+
+  return { encodedKey, cryptoKeyPair };
 }
 
-function Home() {
-  const [chiave, setChiave] = useState<string | null>();
+function HomePage() {
+  const [chiave, setChiave] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
-      const key = await init();
-      setChiave(key);
+      const { encodedKey, cryptoKeyPair } = await init();
+      setChiave(encodedKey);
+      await saveKeyPair(cryptoKeyPair);
     }
+    
     load();
   }, []);
 
-  async function handleClick() {
-    const key = await init();
-    setChiave(key);
+  async function generateNewKeyPair() {
+    const { encodedKey, cryptoKeyPair } = await init();
+    setChiave(encodedKey);
+    await saveKeyPair(cryptoKeyPair);
   }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: THEME.background }}>
       <Navbar />
       <div className="flex flex-col gap-5 px-10 lg:px-52">
-        <KeyDisplay chiave={chiave} handleClick={handleClick} />
-        <AddContact chiave={chiave} />
+        <KeyDisplay chiave={chiave} handleClick={generateNewKeyPair} />
+        <AddContact />
       </div>
-      
     </div>
   );
 }
 
-export default Home;
+export default HomePage;
