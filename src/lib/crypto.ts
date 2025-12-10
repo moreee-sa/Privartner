@@ -32,5 +32,4 @@ export async function saveKeyPair(keyPair: CryptoKeyPair) {
 
   const jwkPair = { publicKey: pubJwk, privateKey: privJwk };
   localStorage.setItem("lastPairKey", JSON.stringify(jwkPair));
-  console.log("Coppia di chiavi salvate");
 }
