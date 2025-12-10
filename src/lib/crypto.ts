@@ -1,12 +1,16 @@
 export async function generaCoppiaChiavi() {
   const keyPair = await window.crypto.subtle.generateKey(
     {
-      name: "ECDSA",
-      namedCurve: "P-384",
+      name: "RSA-OAEP",
+      modulusLength: 4096,
+      publicExponent: new Uint8Array([1, 0, 1]),
+      hash: "SHA-256",
     },
     true,
-    ["sign", "verify"],
+    ["encrypt", "decrypt"],
   );
+
+  console.log("Coppia di chiavi:", keyPair)
 
   return keyPair
 }
@@ -15,15 +19,15 @@ export async function esportaCryptoKeyPair(keyPair: CryptoKeyPair) {
   const pubJwk = await window.crypto.subtle.exportKey("jwk", keyPair.publicKey);
   const privJwk = await window.crypto.subtle.exportKey("jwk", keyPair.privateKey);
 
+  console.log("pubJwk:", pubJwk)
+  console.log("privJwk:", privJwk)
+
   return JSON.stringify({ publicKey: pubJwk, privateKey: privJwk });
 }
 
-export async function getPublicKeyStringXY(jwkPair: string) {
-  const jwkjson = JSON.parse(jwkPair);
-  const publicKeyX = jwkjson.publicKey.x;
-  const publicKeyY = jwkjson.publicKey.y;
-
-  return publicKeyX + publicKeyY;
+export async function getPublicKeyStringRSA(pubJwkString: string) {
+  const pubJwk = JSON.parse(pubJwkString);
+  return pubJwk.publicKey.n;
 }
 
 export async function saveKeyPair(keyPair: CryptoKeyPair) {
