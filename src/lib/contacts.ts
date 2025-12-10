@@ -7,12 +7,12 @@ export type Contact = {
 };
 
 export type ContactKey = {
-  crv: string;
+  kty: string;
+  alg: string;
+  n: string;
+  e: string;
   ext: boolean;
   key_ops: string[];
-  kty: string;
-  x: string;
-  y: string;
 }
 
 export function loadContacts(): Contact[] {
@@ -26,9 +26,10 @@ export function saveContacts(contacts: Contact[]) {
 
 export function addContact(name: string, description: string, jwkPair: CryptoKeyPair, contactKey: ContactKey) {
   const contacts = loadContacts();
+  const contactId = crypto.randomUUID();
 
   const newContact: Contact = {
-    id: crypto.randomUUID(),
+    id: contactId,
     name,
     description,
     keys: jwkPair,
@@ -38,23 +39,16 @@ export function addContact(name: string, description: string, jwkPair: CryptoKey
   contacts.push(newContact);
   saveContacts(contacts);
 
-  return newContact;
+  return contactId;
 }
 
-export function addContactKey(x: string, y: string) {
-  const crv = "P-384";
-  const ext = true;
-  const key_ops = ["verify"];
-  const kty = "EC";
-
-  const contactKey: ContactKey = {
-    crv,
-    ext,
-    key_ops,
-    kty,
-    x,
-    y,
-  }
-
-  return contactKey;
+export function addContactKey(n: string, e: string): ContactKey {
+  return {
+    kty: "RSA",
+    alg: "RSA-OAEP-256",
+    n,
+    e,
+    ext: true,
+    key_ops: ["encrypt"],
+  };
 }
