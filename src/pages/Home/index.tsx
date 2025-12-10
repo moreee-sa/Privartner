@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { generaCoppiaChiavi, esportaCryptoKeyPair, getPublicKeyStringXY, saveKeyPair} from "@/lib/crypto";
+import { generaCoppiaChiavi, esportaCryptoKeyPair, getPublicKeyStringRSA, saveKeyPair} from "@/lib/crypto";
 import { THEME } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import KeyDisplay from "@/components/Home/KeyDisplay";
@@ -8,7 +8,7 @@ import AddContact from "@/components/Home/AddContact";
 async function init() {
   const cryptoKeyPair = await generaCoppiaChiavi();
   const jwkPair = await esportaCryptoKeyPair(cryptoKeyPair)
-  const publicKeyString = await getPublicKeyStringXY(jwkPair)
+  const publicKeyString = await getPublicKeyStringRSA(jwkPair)
   const encodedKey = encodeURIComponent(publicKeyString);
 
   return { encodedKey, cryptoKeyPair };
@@ -28,6 +28,7 @@ function HomePage() {
   }, []);
 
   async function generateNewKeyPair() {
+    setChiave(null);
     const { encodedKey, cryptoKeyPair } = await init();
     setChiave(encodedKey);
     await saveKeyPair(cryptoKeyPair);
