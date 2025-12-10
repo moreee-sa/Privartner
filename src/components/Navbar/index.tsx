@@ -5,8 +5,8 @@ function Navbar() {
   return (
     <div className="w-full py-5 px-10 lg:px-52">
       <Link
-        to={"#"}
-        className="text-2xl"
+        to={"/"}
+        className="text-3xl"
         style={{ color: THEME.text }}
       >
         Privartner
