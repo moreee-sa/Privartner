@@ -16,5 +16,5 @@ createRoot(document.getElementById('root')!).render(
         <Route path='/contact/:id' element={<ContactPage />} />
       </Routes>
     </HashRouter>
-  </StrictMode>,
+  </StrictMode>
 )

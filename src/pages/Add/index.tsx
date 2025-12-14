@@ -4,6 +4,7 @@ import { addContact, addContactKey } from "@/lib/contacts";
 import { THEME } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import { IoPersonAddSharp } from "react-icons/io5";
+import { MdOutlineQrCodeScanner } from "react-icons/md";
 
 function loadContacts() {
   const saved = localStorage.getItem("lastPairKey");
@@ -24,7 +25,8 @@ function loadContacts() {
 function AddContactPage() {
   const navigate = useNavigate();
   const [nameContact, setNameContact] = useState("");
-  const [descriptionContact, setdescriptionContact] = useState("");
+  const [descriptionContact, setDescriptionContact] = useState("");
+  const [keyContact, setKeyContact] = useState("");
   
   useEffect(() => {
     const data = loadContacts();
@@ -42,7 +44,8 @@ function AddContactPage() {
     }
 
     const jwkPair = JSON.parse(savedPair);
-    const contactKey = addContactKey("", "");
+    const contactKey = addContactKey(keyContact);
+    console.log("contact key public",contactKey)
     const newContactId = addContact(nameContact, descriptionContact, jwkPair, contactKey);
 
     console.log("Contatto aggiunto!", newContactId);
@@ -81,11 +84,29 @@ function AddContactPage() {
               type="text"
               name="descrizione"
               value={descriptionContact}
-              onChange={(e) => setdescriptionContact(e.target.value)}
+              onChange={(e) => setDescriptionContact(e.target.value)}
               placeholder="Inserisci la descrizione"
               style={{ color: THEME.text }}
               className="border-none outline-none text-xl w-full h-14"
             />
+          </div>
+
+          <div
+            className="w-full rounded-md px-4 py-2 flex items-center"
+            style={{ boxShadow: 'inset 0px 12px 25px -3px rgba(0, 0, 0, 0.25)' }}
+          >
+            <input
+              type="text"
+              name="descrizione"
+              value={keyContact}
+              onChange={(e) => setKeyContact(e.target.value)}
+              placeholder="Inserisci la chiave pubblica del contatto"
+              style={{ color: THEME.text }}
+              className="border-none outline-none text-xl w-full h-14"
+            />
+            <div className="hidden">
+              <MdOutlineQrCodeScanner color="grey" size={35} />
+            </div>
           </div>
 
           <button
