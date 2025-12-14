@@ -42,13 +42,13 @@ export function addContact(name: string, description: string, jwkPair: CryptoKey
   return contactId;
 }
 
-export function addContactKey(n: string, e: string): ContactKey {
+export function addContactKey(n: string,): ContactKey {
   return {
-    kty: "RSA",
     alg: "RSA-OAEP-256",
-    n,
-    e,
+    e: "AQAB",
     ext: true,
     key_ops: ["encrypt"],
+    kty: "RSA",
+    n,
   };
 }
