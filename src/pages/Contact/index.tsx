@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import type { Contact } from "@/lib/contacts";
