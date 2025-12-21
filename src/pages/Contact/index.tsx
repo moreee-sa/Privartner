@@ -37,10 +37,14 @@ function ContactPage() {
   return (
     <>
       <h1>Pagina Contatti</h1>
-      {showError && <h1>Contatto non trovato</h1>}
-      <p>{id}</p>
-      <p>{contact?.name}</p>
-      <p>{contact?.description}</p>
+      {showError ?
+        <h1>Contatto non trovato</h1> : 
+        <div>
+          <p>{id}</p>
+          <p>{contact?.name}</p>
+          <p>{contact?.description}</p>
+        </div>
+      }
     </>
   )
 }
