@@ -4,7 +4,7 @@ import { addContact, addContactKey } from "@/lib/contacts";
 import { THEME } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import { IoPersonAddSharp } from "react-icons/io5";
-import { MdOutlineQrCodeScanner } from "react-icons/md";
+import InputForm from "@/components/Add/InputForm";
 
 function loadContacts() {
   const saved = localStorage.getItem("lastPairKey");
@@ -53,61 +53,38 @@ function AddContactPage() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: THEME.background }}>
+    <div className="min-h-screen px-10 lg:px-[25%]" style={{ backgroundColor: THEME.background }}>
       <Navbar />
-      <div className="px-10 lg:px-52">
+      <div className="w-full">
         <form
           onSubmit={createContact}
           className="flex flex-col gap-5 p-5 rounded-lg"
+          style={{ backgroundColor: THEME.form }}
         >
-          <div
-            className="w-full rounded-md px-4 py-2"
-            style={{ boxShadow: 'inset 0px 12px 25px -3px rgba(0, 0, 0, 0.25)' }}
-          >
-            <input
-              type="text"
-              name="nome"
-              value={nameContact}
-              onChange={(e) => setNameContact(e.target.value)}
-              required
-              placeholder="Inserisci il nome del contatto"
-              style={{ color: THEME.text }}
-              className="border-none outline-none text-xl w-full h-14"
-            />
-          </div>
+          <InputForm
+            title={"Nome del contatto"}
+            nameInput={"nome"}
+            valueInput={nameContact}
+            placeholderInput={"Inserisci il nome del contatto"}
+            onChange={(e) => setNameContact(e.target.value)}
+          />
 
-          <div
-            className="w-full rounded-md px-4 py-2"
-            style={{ boxShadow: 'inset 0px 12px 25px -3px rgba(0, 0, 0, 0.25)' }}
-          >
-            <input
-              type="text"
-              name="descrizione"
-              value={descriptionContact}
-              onChange={(e) => setDescriptionContact(e.target.value)}
-              placeholder="Inserisci la descrizione"
-              style={{ color: THEME.text }}
-              className="border-none outline-none text-xl w-full h-14"
-            />
-          </div>
+          <InputForm
+            title={"Descrizione del contatto"}
+            nameInput={"descrizione"}
+            valueInput={descriptionContact}
+            placeholderInput={"Inserisci la descrizione"}
+            onChange={(e) => setDescriptionContact(e.target.value)}
+          />
 
-          <div
-            className="w-full rounded-md px-4 py-2 flex items-center"
-            style={{ boxShadow: 'inset 0px 12px 25px -3px rgba(0, 0, 0, 0.25)' }}
-          >
-            <input
-              type="text"
-              name="descrizione"
-              value={keyContact}
-              onChange={(e) => setKeyContact(e.target.value)}
-              placeholder="Inserisci la chiave pubblica del contatto"
-              style={{ color: THEME.text }}
-              className="border-none outline-none text-xl w-full h-14"
-            />
-            <div className="hidden">
-              <MdOutlineQrCodeScanner color="grey" size={35} />
-            </div>
-          </div>
+          <InputForm
+            title={"Chiave pubblica del contatto"}
+            nameInput={"publickey"}
+            valueInput={keyContact}
+            placeholderInput={"Inserisci la chiave pubblica"}
+            onChange={(e) => setKeyContact(e.target.value)}
+            qrcode
+          />
 
           <button
             type="submit"
