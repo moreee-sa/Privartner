@@ -55,49 +55,47 @@ function AddContactPage() {
   return (
     <div className="min-h-screen px-10 lg:px-[25%]" style={{ backgroundColor: THEME.background }}>
       <Navbar />
-      <div className="w-full">
-        <form
-          onSubmit={createContact}
-          className="flex flex-col gap-5 p-5 rounded-lg"
-          style={{ backgroundColor: THEME.form }}
+      <form
+        onSubmit={createContact}
+        className="flex flex-col gap-5 p-5 rounded-lg"
+        style={{ backgroundColor: THEME.form }}
+      >
+        <InputForm
+          title={"Nome del contatto"}
+          nameInput={"nome"}
+          valueInput={nameContact}
+          placeholderInput={"Inserisci il nome del contatto"}
+          onChange={(e) => setNameContact(e.target.value)}
+        />
+
+        <InputForm
+          title={"Descrizione del contatto"}
+          nameInput={"descrizione"}
+          valueInput={descriptionContact}
+          placeholderInput={"Inserisci la descrizione"}
+          onChange={(e) => setDescriptionContact(e.target.value)}
+        />
+
+        <InputForm
+          title={"Chiave pubblica del contatto"}
+          nameInput={"publickey"}
+          valueInput={keyContact}
+          placeholderInput={"Inserisci la chiave pubblica"}
+          onChange={(e) => setKeyContact(e.target.value)}
+          qrcode
+        />
+
+        <button
+          type="submit"
+          className="rounded-lg w-full h-16 flex items-center justify-center gap-5"
+          style={{ backgroundColor: THEME.button }}
         >
-          <InputForm
-            title={"Nome del contatto"}
-            nameInput={"nome"}
-            valueInput={nameContact}
-            placeholderInput={"Inserisci il nome del contatto"}
-            onChange={(e) => setNameContact(e.target.value)}
-          />
-
-          <InputForm
-            title={"Descrizione del contatto"}
-            nameInput={"descrizione"}
-            valueInput={descriptionContact}
-            placeholderInput={"Inserisci la descrizione"}
-            onChange={(e) => setDescriptionContact(e.target.value)}
-          />
-
-          <InputForm
-            title={"Chiave pubblica del contatto"}
-            nameInput={"publickey"}
-            valueInput={keyContact}
-            placeholderInput={"Inserisci la chiave pubblica"}
-            onChange={(e) => setKeyContact(e.target.value)}
-            qrcode
-          />
-
-          <button
-            type="submit"
-            className="rounded-lg w-full h-16 flex items-center justify-center gap-5"
-            style={{ backgroundColor: THEME.button }}
-          >
-            <IoPersonAddSharp size={25} color={THEME.text} />
-            <span className="text-2xl" style={{ color: THEME.text }}>
-              Aggiungi Contatto
-            </span>
-          </button>
-        </form>
-      </div>
+          <IoPersonAddSharp size={25} color={THEME.text} />
+          <span className="text-2xl" style={{ color: THEME.text }}>
+            Aggiungi Contatto
+          </span>
+        </button>
+      </form>
     </div>
   );
 }
