@@ -53,7 +53,7 @@ function AddContactPage() {
   };
 
   return (
-    <div className="min-h-screen px-10 lg:px-[25%]" style={{ backgroundColor: THEME.background }}>
+    <div className="min-h-screen px-10 md:px-15 lg:px-[25%]" style={{ backgroundColor: THEME.background }}>
       <Navbar />
       <form
         onSubmit={createContact}
