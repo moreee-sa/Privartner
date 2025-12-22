@@ -1,5 +1,5 @@
 import { THEME } from "@/lib/constants"
-import { TfiReload } from "react-icons/tfi";
+import { TbReload } from "react-icons/tb";
 
 interface KeyDisplayProps {
   chiave?: string | null;
@@ -21,8 +21,13 @@ function KeyDisplay({chiave, handleClick}: KeyDisplayProps) {
       <button
         className="rounded-lg w-16 h-16 flex items-center justify-center aspect-square"
         onClick={handleClick}
+        disabled={!chiave}
       >
-        <TfiReload size={35} color="#eceeee" />
+        <TbReload
+          size={35}
+          color={chiave ? '#eceeee' : '#4a4e69'}
+          className="transition-colors duration-500"
+        />
       </button>
     </div>
   )
