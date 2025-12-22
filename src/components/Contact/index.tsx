@@ -16,7 +16,7 @@ function ContactList({ contacts }: ContactsProps) {
           contacts.map(contact => (
             <Link key={contact.id} to={`/contact/${contact.id}`}>
               <div
-                className="flex items-center justify-start gap-4 p-5 rounded-lg"
+                className="flex items-center justify-start gap-4 p-5 rounded-lg opacity-80 hover:opacity-100 transition-opacity"
                 style={{ backgroundColor: THEME.button }}
               >
                 <MdAccountCircle size={30} color={THEME.text} />
