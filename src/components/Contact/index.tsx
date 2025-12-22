@@ -9,8 +9,8 @@ interface ContactsProps {
 
 function ContactList({ contacts }: ContactsProps) {
   return (
-    <div>
-      <span className="text-2xl" style={{ color: THEME.text }}>Contact List</span>
+    <div className="w-full">
+      <span className="text-2xl" style={{ color: THEME.text }}>Lista Contatti</span>
       <div className="flex flex-col gap-2 pt-5">
         {contacts && contacts.length > 0 ? (
           contacts.map(contact => (

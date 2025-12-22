@@ -40,9 +40,12 @@ function HomePage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: THEME.background }}>
+    <div 
+      className="min-h-screen px-10 lg:px-[25%]"
+      style={{ backgroundColor: THEME.background }}
+    >
       <Navbar />
-      <div className="flex flex-col gap-5 px-10 lg:px-52">
+      <div className="flex flex-col gap-5 lg:gap-10 lg:items-center">
         <KeyDisplay chiave={chiave} handleClick={generateNewKeyPair} />
         <AddContact />
         <ContactList contacts={contatti} />

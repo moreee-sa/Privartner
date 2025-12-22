@@ -3,13 +3,15 @@ import { THEME } from "@/lib/constants"
 
 function Navbar() {
   return (
-    <div className="w-full py-5 px-10 lg:px-52">
+    <div className="w-full py-5">
       <Link
         to={"/"}
         className="text-3xl"
         style={{ color: THEME.text }}
       >
-        Privartner
+        <span className="lg:text-3xl">
+          Privartner
+        </span>
       </Link>
     </div>
   )
