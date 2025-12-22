@@ -1,6 +1,5 @@
 export const THEME = {
-  text: "#a4b5bd",
-  background: "#181c29",
-  button: "#1f2841",
-  buttonSecondary: "#0b0e23",
+  text: "#FBF5F3",
+  background: "#191716",
+  button: "#323031",
 };
