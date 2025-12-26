@@ -41,14 +41,16 @@ function HomePage() {
 
   return (
     <div 
-      className="min-h-screen px-10 md:px-15 lg:px-[25%]"
+      className="min-h-screen px-10 md:px-15 lg:flex lg:justify-center"
       style={{ backgroundColor: THEME.background }}
     >
-      <Navbar />
-      <div className="flex flex-col gap-5 lg:gap-10 lg:items-center">
-        <KeyDisplay chiave={chiave} handleClick={generateNewKeyPair} />
-        <AddContact />
-        <ContactList contacts={contatti} />
+      <div className="w-full lg:w-200">
+        <Navbar />
+        <div className="flex flex-col gap-5 lg:gap-10 lg:items-center">
+          <KeyDisplay chiave={chiave} handleClick={generateNewKeyPair} />
+          <AddContact />
+          <ContactList contacts={contatti} />
+        </div>
       </div>
     </div>
   );
