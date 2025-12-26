@@ -41,10 +41,10 @@ function HomePage() {
 
   return (
     <div 
-      className="min-h-screen px-10 md:px-15 lg:flex lg:justify-center"
+      className="min-h-screen px-10 md:px-15 md:flex md:justify-center"
       style={{ backgroundColor: THEME.background }}
     >
-      <div className="w-full lg:w-200">
+      <div className="w-full md:w-150 lg:w-200">
         <Navbar />
         <div className="flex flex-col gap-5 lg:gap-10 lg:items-center">
           <KeyDisplay chiave={chiave} handleClick={generateNewKeyPair} />
