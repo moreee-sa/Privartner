@@ -32,7 +32,7 @@ function KeyDisplay({chiave, handleClick}: KeyDisplayProps) {
         <TbReload
           size={35}
           color={chiave ? '#eceeee' : '#4a4e69'}
-          className="transition-colors duration-500"
+          className="transition-all duration-500 opacity-60 hover:opacity-100"
         />
       </button>
     </div>
