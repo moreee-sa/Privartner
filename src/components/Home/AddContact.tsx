@@ -20,4 +20,4 @@ function AddContact() {
   )
 }
 
-export default AddContact
+export default AddContact;

@@ -27,4 +27,4 @@ function ContactList({ contacts }: ContactsProps) {
   )
 }
 
-export default ContactList
+export default ContactList;

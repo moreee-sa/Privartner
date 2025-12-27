@@ -12,9 +12,9 @@ interface InputProps {
 
 function InputForm({ title, nameInput, valueInput, placeholderInput, onChange, qrcode }: InputProps) {
   return (
-    <>
+    <div>
       <span
-        className="text-xl"
+        className="text-base md:text-lg lg:text-xl"
         style={{ color: THEME.text }}
       >
         {title}
@@ -27,16 +27,16 @@ function InputForm({ title, nameInput, valueInput, placeholderInput, onChange, q
           onChange={onChange}
           required
           placeholder={placeholderInput}
-          style={{ color: THEME.text }}
-          className="border-none outline-none text-xl w-full h-14"
+          style={{ color: THEME.textSecondary }}
+          className="border-none outline-none w-full h-14 text-base md:text-lg lg:text-xl"
         />
         {qrcode &&
-          <div className="bg-[#faeffa] flex items-center justify-center h-full p-2 rounded-lg">
-            <MdOutlineQrCodeScanner color={THEME.button} size={35} />
+          <div className="bg-[#323031] flex items-center justify-center h-full p-2 rounded-lg">
+            <MdOutlineQrCodeScanner color={THEME.textSecondary} size={35} />
           </div>
         }
       </div>
-    </>
+    </div>
   )
 }
 

@@ -33,4 +33,4 @@ function KeyDisplay({chiave, handleClick}: KeyDisplayProps) {
   )
 }
 
-export default KeyDisplay
+export default KeyDisplay;
