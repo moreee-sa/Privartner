@@ -7,6 +7,7 @@ import KeyDisplay from "@/components/Home/KeyDisplay";
 import AddContact from "@/components/Home/AddContact";
 import ContactList from "@/components/Contact";
 import type { Contact } from "@/lib/contacts";
+import '@fontsource-variable/nunito-sans';
 
 async function init() {
   const cryptoKeyPair = await generaCoppiaChiavi();

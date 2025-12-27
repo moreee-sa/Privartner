@@ -15,7 +15,10 @@ function InputForm({ title, nameInput, valueInput, placeholderInput, onChange, q
     <div>
       <span
         className="text-base md:text-lg lg:text-xl"
-        style={{ color: THEME.text }}
+        style={{
+          color: THEME.text,
+          fontFamily: "'Nunito Sans Variable', sans-serif",
+        }}
       >
         {title}
       </span>
@@ -27,7 +30,10 @@ function InputForm({ title, nameInput, valueInput, placeholderInput, onChange, q
           onChange={onChange}
           required
           placeholder={placeholderInput}
-          style={{ color: THEME.textSecondary }}
+          style={{
+            color: THEME.textSecondary,
+            fontFamily: "'Nunito Sans Variable', sans-serif",
+          }}
           className="border-none outline-none w-full h-14 text-base md:text-lg lg:text-xl"
         />
         {qrcode &&

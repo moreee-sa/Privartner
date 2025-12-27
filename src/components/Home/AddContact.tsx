@@ -13,7 +13,13 @@ function AddContact() {
         color={THEME.text}
         className="text-base md:text-lg lg:text-xl"
       />
-      <span className="text-base md:text-lg lg:text-xl" style={{ color: THEME.text }}>
+      <span
+        className="text-base md:text-lg lg:text-xl"
+        style={{
+          color: THEME.text,
+          fontFamily: "'Nunito Sans Variable', sans-serif",
+        }}
+      >
         Aggiungi Contatto
       </span>
     </Link>

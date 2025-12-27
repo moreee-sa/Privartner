@@ -8,7 +8,12 @@ function Navbar() {
         to={"/"}
         style={{ color: THEME.text }}
       >
-        <span className="text-2xl md:text-3xl lg:text-4xl">
+        <span
+          className="text-2xl md:text-3xl lg:text-4xl"
+          style={{
+            fontFamily: "'Nunito Sans Variable', sans-serif",
+          }}
+        >
           Privartner
         </span>
       </Link>

@@ -16,10 +16,22 @@ function ContactCard({ contact }: ContactProps) {
       >
         <MdAccountCircle size={30} color={THEME.text} />
         <div className="flex flex-col">
-          <span className="text-base md:text-lg lg:text-xl" style={{ color: THEME.text }}>
+          <span
+            className="text-base md:text-lg lg:text-xl"
+            style={{
+              color: THEME.text,
+              fontFamily: "'Nunito Sans Variable', sans-serif",
+            }}
+          >
             {contact.name}
           </span>
-          <span className="text-xs md:text-base" style={{ color: THEME.textSecondary }}>
+          <span
+            className="text-xs md:text-base"
+            style={{
+              color: THEME.textSecondary,
+              fontFamily: "'Nunito Sans Variable', sans-serif",
+            }}
+          >
             {contact.description}
           </span>
         </div>

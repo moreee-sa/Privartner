@@ -5,6 +5,7 @@ import { THEME } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import { IoPersonAddSharp } from "react-icons/io5";
 import InputForm from "@/components/Add/InputForm";
+import '@fontsource-variable/nunito-sans';
 
 function loadContacts() {
   const saved = localStorage.getItem("lastPairKey");
