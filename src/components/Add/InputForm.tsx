@@ -31,8 +31,8 @@ function InputForm({ title, nameInput, valueInput, placeholderInput, onChange, q
           className="border-none outline-none text-xl w-full h-14"
         />
         {qrcode &&
-          <div className="bg-[#fca311] flex items-center justify-center h-full p-2 rounded-lg">
-            <MdOutlineQrCodeScanner color={THEME.textSecondary} size={35} />
+          <div className="bg-[#faeffa] flex items-center justify-center h-full p-2 rounded-lg">
+            <MdOutlineQrCodeScanner color={THEME.button} size={35} />
           </div>
         }
       </div>

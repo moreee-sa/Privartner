@@ -6,10 +6,9 @@ function Navbar() {
     <div className="w-full py-5">
       <Link
         to={"/"}
-        className="text-3xl"
         style={{ color: THEME.text }}
       >
-        <span className="lg:text-3xl">
+        <span className="text-2xl md:text-3xl lg:text-4xl">
           Privartner
         </span>
       </Link>
@@ -17,4 +16,4 @@ function Navbar() {
   )
 }
 
-export default Navbar
+export default Navbar 

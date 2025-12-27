@@ -10,7 +10,9 @@ interface ContactsProps {
 function ContactList({ contacts }: ContactsProps) {
   return (
     <div className="w-full">
-      <span className="text-2xl" style={{ color: THEME.text }}>Lista Contatti</span>
+      <span className="text-lg md:text-xl lg:text-2xl" style={{ color: THEME.text }}>
+        Lista Contatti
+      </span>
       <div className="flex flex-col gap-2 pt-5">
         {contacts && contacts.length > 0 ? (
           contacts.map(contact => (
@@ -20,9 +22,14 @@ function ContactList({ contacts }: ContactsProps) {
                 style={{ backgroundColor: THEME.button }}
               >
                 <MdAccountCircle size={30} color={THEME.text} />
-                <span className="text-2xl" style={{ color: THEME.text }}>
-                  {contact.name}
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-base md:text-lg lg:text-xl" style={{ color: THEME.text }}>
+                    {contact.name}
+                  </span>
+                  <span className="text-xs md:text-base" style={{ color: THEME.textSecondary }}>
+                    {contact.description}
+                  </span>
+                </div>
               </div>
             </Link>
           ))

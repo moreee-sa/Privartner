@@ -9,8 +9,11 @@ function AddContact() {
       className="rounded-lg w-full h-16 flex items-center justify-center gap-5 opacity-80 hover:opacity-100 transition-opacity"
       style={{ backgroundColor: THEME.button }}
     >
-      <IoPersonAddSharp size={25} color={THEME.text} />
-      <span className="text-2xl" style={{ color: THEME.text }}>
+      <IoPersonAddSharp
+        color={THEME.text}
+        className="text-base md:text-lg lg:text-xl"
+      />
+      <span className="text-base md:text-lg lg:text-xl" style={{ color: THEME.text }}>
         Aggiungi Contatto
       </span>
     </Link>
