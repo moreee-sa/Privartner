@@ -31,7 +31,7 @@ function InputForm({ title, nameInput, valueInput, placeholderInput, onChange, q
           className="border-none outline-none w-full h-14 text-base md:text-lg lg:text-xl"
         />
         {qrcode &&
-          <div className="bg-[#323031] flex items-center justify-center h-full p-2 rounded-lg">
+          <div className="bg-[#323031] flex items-center justify-center h-full p-2 rounded-lg opacity-80 hover:opacity-100 transition-opacity hover:cursor-pointer">
             <MdOutlineQrCodeScanner color={THEME.textSecondary} size={35} />
           </div>
         }
