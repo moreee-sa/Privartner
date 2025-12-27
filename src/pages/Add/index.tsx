@@ -71,6 +71,7 @@ function AddContactPage() {
             valueInput={nameContact}
             placeholderInput={"Inserisci il nome del contatto"}
             onChange={(e) => setNameContact(e.target.value)}
+            required
           />
 
           <InputForm
@@ -79,6 +80,7 @@ function AddContactPage() {
             valueInput={descriptionContact}
             placeholderInput={"Inserisci la descrizione"}
             onChange={(e) => setDescriptionContact(e.target.value)}
+            required
           />
 
           <InputForm
