@@ -8,9 +8,10 @@ interface InputProps {
   placeholderInput: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   qrcode?: boolean;
+  required?: boolean;
 }
 
-function InputForm({ title, nameInput, valueInput, placeholderInput, onChange, qrcode }: InputProps) {
+function InputForm({ title, nameInput, valueInput, placeholderInput, onChange, qrcode, required = false }: InputProps) {
   return (
     <div>
       <span
@@ -28,7 +29,7 @@ function InputForm({ title, nameInput, valueInput, placeholderInput, onChange, q
           name={nameInput}
           value={valueInput}
           onChange={onChange}
-          required
+          required={required}
           placeholder={placeholderInput}
           style={{
             color: THEME.textSecondary,
