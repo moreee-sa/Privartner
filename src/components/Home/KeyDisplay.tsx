@@ -13,7 +13,7 @@ function KeyDisplay({chiave, handleClick}: KeyDisplayProps) {
       style={{ boxShadow: 'inset 0px 12px 25px -3px rgba(0, 0, 0, 0.25)' }}
     >
       <div className="flex items-center overflow-hidden text-nowrap mask-[linear-gradient(to_right,black_50%,transparent)] mask-size-[100%_100%]">
-        <span className="text-base lg:text-lg" style={{ color: THEME.text }}>
+        <span className={`text-base lg:text-lg opacity-50 transition-opacity duration-500 ${chiave && "opacity-100"}`} style={{ color: THEME.text }}>
           {chiave ?? "Generazione chiave in corso..."}
         </span>
       </div>
