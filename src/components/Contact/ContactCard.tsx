@@ -9,7 +9,7 @@ interface ContactProps {
 
 function ContactCard({ contact }: ContactProps) {
   return (
-    <Link key={contact.id} to={`/contact/${contact.id}`}>
+    <Link to={`/contact/${contact.id}`}>
       <div
         className="flex items-center justify-start gap-4 p-5 rounded-lg opacity-80 hover:opacity-100 transition-opacity"
         style={{ backgroundColor: THEME.button }}

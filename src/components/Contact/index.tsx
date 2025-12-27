@@ -21,7 +21,7 @@ function ContactList({ contacts }: ContactsProps) {
       <div className="flex flex-col gap-2 pt-5">
         {contacts && contacts.length > 0 ? (
           contacts.map(contact => (
-            <ContactCard contact={contact} />
+            <ContactCard contact={contact} key={contact.id} />
           ))
         ) : (
           <p style={{ color: THEME.text }}>
