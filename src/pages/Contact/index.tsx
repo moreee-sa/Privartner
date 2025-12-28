@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { Contact } from "@/lib/contacts";
 import { THEME } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
-import ContactDetail from "../Home/ContactDetail";
+import ContactDetail from "@/components/Contact/ContactDetail";
 
 function ContactPage() {
   const navigate = useNavigate();
