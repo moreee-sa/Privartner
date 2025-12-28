@@ -1,6 +1,9 @@
 import { useParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import type { Contact } from "@/lib/contacts";
+import { THEME } from "@/lib/constants";
+import Navbar from "@/components/Navbar";
+import ContactDetail from "../Home/ContactDetail";
 
 function ContactPage() {
   const navigate = useNavigate();
@@ -35,17 +38,19 @@ function ContactPage() {
   if (!id) return null
 
   return (
-    <>
-      <h1>Pagina Contatti</h1>
-      {showError ?
-        <h1>Contatto non trovato</h1> : 
-        <div>
-          <p>{id}</p>
-          <p>{contact?.name}</p>
-          <p>{contact?.description}</p>
-        </div>
-      }
-    </>
+    <div
+      className="min-h-screen px-4 md:px-10 md:flex md:justify-center"
+      style={{ backgroundColor: THEME.background }}
+    >
+      <div className="w-full md:w-150 lg:w-200">
+        <Navbar />
+        {showError ? (
+          <span>Contatto non trovato</span>
+        ) : (
+          <ContactDetail contact={contact} />
+        )}
+      </div>
+    </div>
   )
 }
 
