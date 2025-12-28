@@ -25,7 +25,27 @@ function ContactList({ contacts }: ContactsProps) {
           ))
         ) : (
           <p style={{ color: THEME.text }}>
-            {contacts === null ? "Caricamento contatti" : "Nessun contatto trovato"}
+            {contacts === null ? (
+              <span
+                className="text-base"
+                style={{
+                  color: THEME.textSecondary,
+                  fontFamily: "'Nunito Sans Variable', sans-serif",
+                }}
+              >
+                Caricamento contatti
+              </span>
+            ) : (
+                <span
+                className="text-base"
+                style={{
+                  color: THEME.textSecondary,
+                  fontFamily: "'Nunito Sans Variable', sans-serif",
+                }}
+              >
+                Nessun contatto trovato
+              </span>
+            )}
           </p>
         )}
       </div>
