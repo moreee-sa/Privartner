@@ -94,7 +94,7 @@ function AddContactPage() {
 
           <button
             type="submit"
-            className="rounded-lg w-full h-16 flex items-center justify-center gap-5 opacity-80 hover:opacity-100 transition-opacity hover:cursor-pointer"
+            className="rounded-lg w-full h-16 flex items-center justify-center gap-5 opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
             style={{ backgroundColor: THEME.button }}
           >
             <IoPersonAddSharp
