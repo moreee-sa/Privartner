@@ -29,3 +29,28 @@ export async function saveKeyPair(keyPair: CryptoKeyPair) {
   const jwkPair = { publicKey: pubJwk, privateKey: privJwk };
   localStorage.setItem("lastPairKey", JSON.stringify(jwkPair));
 }
+
+export async function importPublicKey(jwk: JsonWebKey): Promise<CryptoKey> {
+  return await window.crypto.subtle.importKey(
+    "jwk",
+    jwk,
+    {
+      name: "RSA-OAEP",
+      hash: "SHA-256"
+    },
+    true,
+    ["encrypt"]
+  );
+}
+
+export async function encryptMessage(cryptoKey: CryptoKey, encMessage: Uint8Array<ArrayBuffer>) {
+  const encryptedMessage = window.crypto.subtle.encrypt(
+    {
+      name: "RSA-OAEP",
+    },
+    cryptoKey,
+    encMessage,
+  )
+
+  return encryptedMessage;
+}
