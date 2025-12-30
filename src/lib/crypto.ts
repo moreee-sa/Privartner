@@ -20,7 +20,9 @@ export async function esportaCryptoKeyPair(keyPair: CryptoKeyPair) {
 
 export async function getPublicKeyStringRSA(pubJwkString: string) {
   const pubJwk = JSON.parse(pubJwkString);
-  return pubJwk.publicKey.n;
+  
+  if (pubJwk.publicKey?.n) return pubJwk.publicKey.n;
+  if (pubJwk.n) return pubJwk.n;
 }
 
 export async function saveKeyPair(keyPair: CryptoKeyPair) {
