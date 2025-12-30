@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { Contact } from "@/lib/contacts";
 import { THEME } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
-import ContactDetail from "@/components/Contact/ContactDetail";
+import ContactDetailView from "@/components/Contact/ContactDetailView";
 
 function ContactPage() {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ function ContactPage() {
         {showError ? (
           <span>Contatto non trovato</span>
         ) : (
-          <ContactDetail contact={contact} />
+          <ContactDetailView contact={contact} />
         )}
       </div>
     </div>

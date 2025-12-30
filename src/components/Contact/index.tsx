@@ -1,6 +1,6 @@
 import type { Contact } from "@/lib/contacts"
 import { THEME } from "@/lib/constants";
-import ContactCard from "./ContactCard";
+import ContactCard from "./ContactListItem";
 
 interface ContactsProps {
   contacts: Contact[] | null;

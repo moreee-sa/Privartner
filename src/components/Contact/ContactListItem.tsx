@@ -7,7 +7,7 @@ interface ContactProps {
   contact: Contact;
 }
 
-function ContactCard({ contact }: ContactProps) {
+function ContactListItem({ contact }: ContactProps) {
   return (
     <Link to={`/contact/${contact.id}`}>
       <div
@@ -40,4 +40,4 @@ function ContactCard({ contact }: ContactProps) {
   )
 }
 
-export default ContactCard;
+export default ContactListItem;
