@@ -18,6 +18,13 @@ function MyShareCode({ code }: ShareCodeProps) {
       };
       const clipboardItem = new ClipboardItem(clipboardItemData);
       await navigator.clipboard.write([clipboardItem]);
+      
+      const shareUrl = {
+        title: "Privartner",
+        text: "Privartner",
+        url: url,
+      }
+      await navigator.share(shareUrl);
       setCopied(true);
     } catch (error) {
       console.error("Errore durante la copia:", error);
