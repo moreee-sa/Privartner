@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { useState, useEffect, type FormEvent } from "react";
 import { addContact, addContactKey } from "@/lib/contacts";
 import { THEME } from "@/lib/constants";
@@ -25,9 +25,12 @@ function loadContacts() {
 
 function AddContactPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const contactKeyFromUrl = searchParams.get("key") || "";
+
   const [nameContact, setNameContact] = useState("");
   const [descriptionContact, setDescriptionContact] = useState("");
-  const [keyContact, setKeyContact] = useState("");
+  const [keyContact, setKeyContact] = useState(contactKeyFromUrl);
   
   useEffect(() => {
     const data = loadContacts();
