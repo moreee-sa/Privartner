@@ -15,17 +15,25 @@ interface ContactProps {
 function ContactDetailView({ contact }: ContactProps) {
   const [message, setMessage] = useState("");
   const [placeholder, setPlaceholder] = useState("Inserisci il messaggio");
-  const [publicKey, setPublicKey] = useState("");
+  const [contactKey, setContactKey] = useState("");
+  const [personalKey, setPersonalKey] = useState("");
 
   useEffect(() => {
     async function load() {
       console.log(contact)
-      if (!contact?.keys) return;
+      if (!contact?.contactKey) return;
 
-      const pubJwkString = JSON.stringify(contact.keys);
-      const pbk = await getPublicKeyStringRSA(pubJwkString);
-      setPublicKey(pbk);
-      console.log(pbk);
+      // Chiave Contatto
+      const cpubJwkString = JSON.stringify(contact.contactKey);
+      const cpbk = await getPublicKeyStringRSA(cpubJwkString);
+      setContactKey(cpbk);
+      console.log(cpbk);
+      
+      // Chiave Utente
+      const ppubJwkString = JSON.stringify(contact.keys);
+      const ppbk = await getPublicKeyStringRSA(ppubJwkString);
+      setPersonalKey(ppbk);
+      console.log(ppbk);
     }
 
     load();
@@ -50,7 +58,6 @@ function ContactDetailView({ contact }: ContactProps) {
       console.log("cryptoKey:", cryptoKey)
 
       const encryptedMessage = await encryptMessage(cryptoKey, encMessage);
-
       console.log(encryptedMessage);
     }
   }
@@ -62,8 +69,8 @@ function ContactDetailView({ contact }: ContactProps) {
   return (
     <div className="flex flex-col gap-4">
       <ContactHeader name={contact?.name} description={contact?.description} id={contact?.id} />
-      <MyShareCode code={"1234567890"} />
-      <ContactShareCode name={contact?.name} code={publicKey} />
+      <MyShareCode code={personalKey} />
+      <ContactShareCode name={contact?.name} code={contactKey} />
 
       <div>
         <textarea
