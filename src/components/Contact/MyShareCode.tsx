@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { THEME } from "@/lib/constants";
 import { CiShare1 } from "react-icons/ci";
 
@@ -6,6 +7,23 @@ interface ShareCodeProps {
 }
 
 function MyShareCode({ code }: ShareCodeProps) {
+  const [copied, setCopied] = useState(false);
+
+  async function ShareCode() {
+    try {
+      const url = `https://privartner.netlify.app/#/add?key=${code}`;
+      const type = "text/plain";
+      const clipboardItemData = {
+        [type]: url,
+      };
+      const clipboardItem = new ClipboardItem(clipboardItemData);
+      await navigator.clipboard.write([clipboardItem]);
+      setCopied(true);
+    } catch (error) {
+      console.error("Errore durante la copia:", error);
+    }
+  }
+
   return (
     <div className="flex flex-col">
       <span
@@ -30,13 +48,14 @@ function MyShareCode({ code }: ShareCodeProps) {
           disabled
         />
         <button
-          className="shrink-0 rounded-lg min-w-12 min-h-12 md:min-w-14 md:min-h-14 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
-          style={{ backgroundColor: THEME.button }}
+          className="shrink-0 rounded-lg min-w-12 min-h-12 md:min-w-14 md:min-h-14 flex items-center justify-center opacity-80 hover:opacity-100 transition-all cursor-pointer"
+          style={{ backgroundColor: copied ? THEME.successful : THEME.button }}
+          onClick={ShareCode}
         >
           <CiShare1
             size={26}
-            className="md:size-7"
-            color={THEME.text}
+            className="md:size-7 transition-colors"
+            color={copied ? THEME.successfulText : THEME.text}
           />
         </button>
       </div>
