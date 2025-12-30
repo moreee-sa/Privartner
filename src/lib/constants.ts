@@ -3,5 +3,7 @@ export const THEME = {
   textSecondary: "#969593",
   background: "#191716",
   button: "#323031",
-  form: "#0F0F0F"
+  form: "#0F0F0F",
+  successful: "#E5BA41",
+  successfulText: "#061E29"
 };
