@@ -56,3 +56,14 @@ export async function encryptMessage(cryptoKey: CryptoKey, encMessage: Uint8Arra
 
   return encryptedMessage;
 }
+
+export function arrayBufferToBase64(buffer: ArrayBuffer) {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+
+  return window.btoa(binary);
+}
