@@ -3,7 +3,7 @@ import { THEME } from "@/lib/constants";
 import type { Contact } from "@/lib/contacts";
 import CryptoActionButton from "./CryptoActionButton";
 import type { ContactKey } from "@/lib/contacts";
-import { importPublicKey, getPublicKeyStringRSA, encryptMessage } from "@/lib/crypto";
+import { importPublicKey, getPublicKeyStringRSA, encryptMessage, arrayBufferToBase64, getMessageEncoding } from "@/lib/crypto";
 import MyShareCode from "./MyShareCode";
 import ContactHeader from "./ContactHeader";
 import ContactShareCode from "./ContactShareCode";
@@ -38,31 +38,20 @@ function ContactDetailView({ contact }: ContactProps) {
 
     load();
   }, [contact]);
-
-  function getMessageEncoding() {
-    const userMessage = message.trim();
-    if (!userMessage) return null;
-
-    return new TextEncoder().encode(userMessage);
-  }
   
-  async function handleEncryptMessage(publicKey: ContactKey) {
-    const encMessage = getMessageEncoding();
+  async function handleEncryptMessage(publicKey: ContactKey, message: string) {
+    const encMessage = getMessageEncoding(message);
 
     if (encMessage) {
-      console.log(encMessage);
-      console.log("publicKey:", publicKey);
       setPlaceholder("Cifraggio del messaggio in corso...");
-
       const cryptoKey = await importPublicKey(publicKey);
-      console.log("cryptoKey:", cryptoKey)
-
       const encryptedMessage = await encryptMessage(cryptoKey, encMessage);
-      console.log(encryptedMessage);
+      const base64Message = arrayBufferToBase64(encryptedMessage);
+      setMessage(base64Message);
     }
   }
 
-  function Decrypt() {
+  function handleDecryptMessage() {
     console.log("Crypt:", message);
   }
 
@@ -85,8 +74,8 @@ function ContactDetailView({ contact }: ContactProps) {
         />
       </div>
       <div className="flex gap-2">
-        <CryptoActionButton actionText="Mostra" handleClick={() => contact?.contactKey && handleEncryptMessage(contact.contactKey)} />
-        <CryptoActionButton actionText="Nascondi" handleClick={Decrypt} />
+        <CryptoActionButton actionText="Mostra" handleClick={handleDecryptMessage} />
+        <CryptoActionButton actionText="Nascondi" handleClick={() => contact?.contactKey && handleEncryptMessage(contact.contactKey, message)} />
       </div>
     </div>
   )
