@@ -67,3 +67,10 @@ export function arrayBufferToBase64(buffer: ArrayBuffer) {
 
   return window.btoa(binary);
 }
+
+export function getMessageEncoding(message: string) {
+  const userMessage = message.trim();
+  if (!userMessage) return null;
+
+  return new TextEncoder().encode(userMessage);
+}
