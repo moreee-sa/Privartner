@@ -59,12 +59,20 @@ function ContactDetailView({ contact }: ContactProps) {
       setPlaceholder("Cifraggio del messaggio in corso...");
       try {
         const cryptoKey = await importPublicKey(publicKey);
+        // Cifra messaggio
         const encryptedMessage = await encryptMessage(cryptoKey, encMessage);
         const base64Message = arrayBufferToBase64(encryptedMessage);
         setMessageData(prev => ({
           ...prev,
           text: base64Message
         }));
+        // Copia negli appunti
+        const type = "text/plain";
+        const clipboardItemData = {
+          [type]: base64Message,
+        };
+        const clipboardItem = new ClipboardItem(clipboardItemData);
+        await navigator.clipboard.write([clipboardItem]);
       } catch (error) {
         setMessageData(prev => ({
           ...prev,
