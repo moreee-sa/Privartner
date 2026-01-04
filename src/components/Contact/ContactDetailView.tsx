@@ -7,6 +7,7 @@ import { importPublicKey, getPublicKeyStringRSA, encryptMessage, arrayBufferToBa
 import MyShareCode from "./MyShareCode";
 import ContactHeader from "./ContactHeader";
 import ContactShareCode from "./ContactShareCode";
+import MessageInput from "./MessageInput";
 
 interface ContactProps {
   contact: Contact | null;
@@ -124,26 +125,14 @@ function ContactDetailView({ contact }: ContactProps) {
       <MyShareCode code={personalKey} />
       <ContactShareCode name={contact?.name} code={contactKey} />
 
-      <div>
-        <textarea
-          className="outline outline-[#323031] rounded-lg focus:outline-[#969593] transition-all p-5 w-full resize-none field-sizing-content"
-          style={{
-            color: messageData.maxBytes ? "#FF2C2C" : THEME.text,
-            fontFamily: "'Nunito Sans Variable', sans-serif",
-          }}
-          placeholder={placeholder}
-          value={messageData.text}
-          onChange={(e) => handleMessageLength(e)}
-        />
-        <div className="flex justify-end">
-          <span
-            className="transition-colors"
-            style={{ color: messageData.maxBytes ? "#FF2C2C" : THEME.text, fontFamily: "'Nunito Sans Variable', sans-serif", }}
-          >
-            {messageData.byteLength}/{MAX_RSA_OAEP_BYTES} bytes
-          </span>
-        </div>
-      </div>
+      <MessageInput
+        maxBytes={messageData.maxBytes}
+        placeholder={placeholder}
+        text={messageData.text}
+        byteLength={messageData.byteLength}
+        handleMessageLength={handleMessageLength}
+      />
+      
       <div className="flex gap-2">
         <CryptoActionButton actionText="Mostra" disableButton={disableButton} handleClick={handleDecryptMessage} />
         <CryptoActionButton actionText="Nascondi" disableButton={disableButton} handleClick={() => contact?.contactKey && handleEncryptMessage(contact.contactKey, messageData.text)} />
