@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { THEME } from "@/lib/constants";
 import type { Contact } from "@/lib/contacts";
 import CryptoActionButton from "./CryptoActionButton";
 import type { ContactKey } from "@/lib/contacts";
