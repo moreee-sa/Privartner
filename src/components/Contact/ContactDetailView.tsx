@@ -30,7 +30,6 @@ function ContactDetailView({ contact }: ContactProps) {
 
   useEffect(() => {
     async function load() {
-      console.log(contact)
       if (!contact?.contactKey) return;
 
       setDisableButton(false);
@@ -39,13 +38,11 @@ function ContactDetailView({ contact }: ContactProps) {
       const cpubJwkString = JSON.stringify(contact.contactKey);
       const cpbk = await getPublicKeyStringRSA(cpubJwkString);
       setContactKey(cpbk);
-      console.log(cpbk);
       
       // Chiave Utente
       const ppubJwkString = JSON.stringify(contact.keys);
       const ppbk = await getPublicKeyStringRSA(ppubJwkString);
       setPersonalKey(ppbk);
-      console.log(ppbk);
     }
 
     load();
