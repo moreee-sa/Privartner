@@ -23,9 +23,12 @@ function MyShareCode({ code }: ShareCodeProps) {
         title: "Privartner",
         text: "Privartner",
         url: url,
-      }
+      };
       await navigator.share(shareUrl);
       setCopied(true);
+      setTimeout(() => {
+        setCopied(false);
+      }, 1000);
     } catch (error) {
       console.error("Errore durante la copia:", error);
     }
@@ -55,7 +58,7 @@ function MyShareCode({ code }: ShareCodeProps) {
           disabled
         />
         <button
-          className="shrink-0 rounded-lg min-w-12 min-h-12 md:min-w-14 md:min-h-14 flex items-center justify-center opacity-80 hover:opacity-100 transition-all cursor-pointer"
+          className="shrink-0 rounded-lg min-w-12 min-h-12 md:min-w-14 md:min-h-14 flex items-center justify-center opacity-80 hover:opacity-100 transition-all duration-500 cursor-pointer"
           style={{ backgroundColor: copied ? THEME.successful : THEME.button }}
           onClick={ShareCode}
         >
