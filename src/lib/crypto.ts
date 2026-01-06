@@ -80,6 +80,17 @@ export function arrayBufferToBase64(buffer: ArrayBuffer) {
   return window.btoa(binary);
 }
 
+export function base64ToArrayBuffer(base64: string) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+
+  return bytes.buffer;
+}
+
 export function getMessageEncoding(message: string) {
   const userMessage = message.trim();
   if (!userMessage) return null;
