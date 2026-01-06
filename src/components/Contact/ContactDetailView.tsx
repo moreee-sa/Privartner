@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import type { Contact } from "@/lib/contacts";
 import CryptoActionButton from "./CryptoActionButton";
 import type { ContactKey } from "@/lib/contacts";
-import { importPublicKey, getPublicKeyStringRSA, encryptMessage, arrayBufferToBase64, getMessageEncoding } from "@/lib/crypto";
+import { importPublicKey, importPrivateKey, getPublicKeyStringRSA, encryptMessage, decryptMessage, arrayBufferToBase64, base64ToArrayBuffer, getMessageEncoding } from "@/lib/crypto";
 import MyShareCode from "./MyShareCode";
 import ContactHeader from "./ContactHeader";
 import ContactShareCode from "./ContactShareCode";
@@ -30,6 +30,7 @@ function ContactDetailView({ contact }: ContactProps) {
 
   useEffect(() => {
     async function load() {
+      console.log(contact)
       if (!contact?.contactKey) return;
 
       setDisableButton(false);
@@ -88,8 +89,34 @@ function ContactDetailView({ contact }: ContactProps) {
     setPlaceholder("Il messaggio non può essere vuoto!");
   }
 
-  function handleDecryptMessage() {
-    console.log("Crypt:", messageData.text);
+  async function handleDecryptMessage(privateKeyInput: CryptoKey | ContactKey, message: string) {
+    if (!message) return;
+
+    setDisableButton(true);
+
+    try {
+      let privateKey: CryptoKey;
+      if (privateKeyInput && 'kty' in privateKeyInput && typeof privateKeyInput === 'object') {
+        privateKey = await importPrivateKey(privateKeyInput as ContactKey);
+      } else {
+        privateKey = privateKeyInput as CryptoKey;
+      }
+
+      const ciphertext = base64ToArrayBuffer(message);
+      const decryptedBuffer = await decryptMessage(privateKey, ciphertext);
+
+      const text = new TextDecoder().decode(decryptedBuffer);
+      setMessageData(prev => ({
+        ...prev,
+        text: text,
+        maxBytes: false,
+      }));
+
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setDisableButton(false);
+    }
   }
 
   function handleMessageLength(event: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -101,7 +128,7 @@ function ContactDetailView({ contact }: ContactProps) {
       byteLength: msgLength,
     }))
     if (msgLength > MAX_RSA_OAEP_BYTES) {
-      setDisableButton(true);
+      setDisableButton(false);
       setMessageData(prev =>({
         ...prev,
         maxBytes: true,
@@ -130,11 +157,11 @@ function ContactDetailView({ contact }: ContactProps) {
       />
       
       <div className="flex gap-2">
-        <CryptoActionButton actionText="Mostra" disableButton={disableButton} handleClick={handleDecryptMessage} />
+        <CryptoActionButton actionText="Mostra" disableButton={disableButton} handleClick={() => contact?.keys && handleDecryptMessage(contact.keys.privateKey, messageData.text)} />
         <CryptoActionButton actionText="Nascondi" disableButton={disableButton} handleClick={() => contact?.contactKey && handleEncryptMessage(contact.contactKey, messageData.text)} />
       </div>
     </div>
   )
 }
-
+  
 export default ContactDetailView;
