@@ -57,6 +57,18 @@ export async function encryptMessage(cryptoKey: CryptoKey, encMessage: Uint8Arra
   return encryptedMessage;
 }
 
+export async function decryptMessage(privateKey: CryptoKey, ciphertext: BufferSource) {
+  const decryptedMessage = window.crypto.subtle.decrypt(
+    {
+      name: "RSA-OAEP",
+    },
+    privateKey,
+    ciphertext,
+  )
+
+  return decryptedMessage;
+}
+
 export function arrayBufferToBase64(buffer: ArrayBuffer) {
   let binary = '';
   const bytes = new Uint8Array(buffer);
