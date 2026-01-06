@@ -6,22 +6,7 @@ import Navbar from "@/components/Navbar";
 import { IoPersonAddSharp } from "react-icons/io5";
 import InputForm from "@/components/Add/InputForm";
 import '@fontsource-variable/nunito-sans';
-
-function loadContacts() {
-  const saved = localStorage.getItem("lastPairKey");
-
-  if (saved) {
-    const jwkPair = JSON.parse(saved);
-    console.log(jwkPair)
-    const publicKeyOnly = JSON.stringify(jwkPair.publicKey);
-    const encodedKey = encodeURIComponent(publicKeyOnly);
-    console.log("Chiave pubblica da condividere:", encodedKey);
-
-    return encodedKey
-  };
-
-  return null
-}
+import { generaCoppiaChiavi } from "@/lib/crypto";
 
 function AddContactPage() {
   const navigate = useNavigate();
@@ -31,29 +16,38 @@ function AddContactPage() {
   const [nameContact, setNameContact] = useState("");
   const [descriptionContact, setDescriptionContact] = useState("");
   const [keyContact, setKeyContact] = useState(contactKeyFromUrl);
+  const [keyPair, setKeyPair] = useState<CryptoKeyPair | null>(null);
   
   useEffect(() => {
-    const data = loadContacts();
-    if (data === null) navigate("/");
-  }, [navigate]);
+    async function load() {
+      const savedPair = localStorage.getItem("lastPairKey");
+      if (savedPair) {
+        const jwkPair = JSON.parse(savedPair);
+        console.log("Chiave salvata trovata:", jwkPair);
+        setKeyPair(jwkPair);
+      } else {
+        const newPair = await generaCoppiaChiavi();
+        setKeyPair(newPair);
+        localStorage.setItem("lastPairKey", JSON.stringify(newPair));
+        console.log("Nuova coppia di chiavi generata:", newPair);
+      }
+    }
+    load();
+  }, []);
 
   const createContact = (e: FormEvent) => {
     e.preventDefault();
 
-    const savedPair = localStorage.getItem("lastPairKey");
-
-    if (!savedPair) {
-      console.error("Nessuna coppia di chiavi trovata!");
+    if (!keyPair) {
+      console.error("Nessuna coppia di chiavi disponibile!");
       return;
     }
 
-    const jwkPair = JSON.parse(savedPair);
     const contactKey = addContactKey(keyContact);
-    console.log("contact key public",contactKey)
-    const newContactId = addContact(nameContact, descriptionContact, jwkPair, contactKey);
+    const newContactId = addContact(nameContact, descriptionContact, keyPair, contactKey);
 
     console.log("Contatto aggiunto!", newContactId);
-    navigate(`/`)
+    navigate(`/`);
   };
 
   return (
