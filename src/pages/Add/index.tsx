@@ -16,7 +16,7 @@ function AddContactPage() {
   const [nameContact, setNameContact] = useState("");
   const [descriptionContact, setDescriptionContact] = useState("");
   const [keyContact, setKeyContact] = useState(contactKeyFromUrl);
-  const [keyPair, setKeyPair] = useState<CryptoKeyPair | null>(null);
+  const [keyPair, setKeyPair] = useState<{ publicKey: JsonWebKey; privateKey: JsonWebKey } | null>(null);
   
   useEffect(() => {
     async function load() {
@@ -27,11 +27,14 @@ function AddContactPage() {
         setKeyPair(jwkPair);
       } else {
         const newPair = await generaCoppiaChiavi();
-        setKeyPair(newPair);
-        localStorage.setItem("lastPairKey", JSON.stringify(newPair));
         console.log("Nuova coppia di chiavi generata:", newPair);
+        const pubJwk = await crypto.subtle.exportKey("jwk", newPair.publicKey);
+        const privJwk = await crypto.subtle.exportKey("jwk", newPair.privateKey);
+        const jwkPair = { publicKey: pubJwk, privateKey: privJwk };
+        setKeyPair(jwkPair);
       }
     }
+    
     load();
   }, []);
 
@@ -44,7 +47,7 @@ function AddContactPage() {
     }
 
     const contactKey = addContactKey(keyContact);
-    const newContactId = addContact(nameContact, descriptionContact, keyPair, contactKey);
+    const newContactId = addContact(nameContact, descriptionContact, keyPair as CryptoKeyPair, contactKey);
 
     console.log("Contatto aggiunto!", newContactId);
     navigate(`/`);
