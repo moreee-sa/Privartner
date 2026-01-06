@@ -45,6 +45,19 @@ export async function importPublicKey(jwk: JsonWebKey): Promise<CryptoKey> {
   );
 }
 
+export async function importPrivateKey(jwk: JsonWebKey): Promise<CryptoKey> {
+  return await window.crypto.subtle.importKey(
+    "jwk",
+    jwk,
+    {
+      name: "RSA-OAEP",
+      hash: "SHA-256"
+    },
+    true,
+    ["decrypt"]
+  );
+}
+
 export async function encryptMessage(cryptoKey: CryptoKey, encMessage: Uint8Array<ArrayBuffer>) {
   const encryptedMessage = window.crypto.subtle.encrypt(
     {
