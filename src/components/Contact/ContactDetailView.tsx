@@ -30,8 +30,7 @@ function ContactDetailView({ contact }: ContactProps) {
 
   useEffect(() => {
     async function load() {
-      console.log(contact)
-      if (!contact?.contactKey) return;
+        if (!contact?.contactKey) return;
 
       setDisableButton(false);
 
@@ -101,7 +100,6 @@ function ContactDetailView({ contact }: ContactProps) {
       } else {
         privateKey = privateKeyInput as CryptoKey;
       }
-
       const ciphertext = base64ToArrayBuffer(message);
       const decryptedBuffer = await decryptMessage(privateKey, ciphertext);
 
