@@ -25,13 +25,6 @@ export async function getPublicKeyStringRSA(pubJwkString: string) {
   if (pubJwk.n) return pubJwk.n;
 }
 
-export async function saveKeyPair(keyPair: CryptoKeyPair) {
-  const pubJwk = await crypto.subtle.exportKey("jwk", keyPair.publicKey);
-  const privJwk = await crypto.subtle.exportKey("jwk", keyPair.privateKey);
-  const jwkPair = { publicKey: pubJwk, privateKey: privJwk };
-  localStorage.setItem("lastPairKey", JSON.stringify(jwkPair));
-}
-
 export async function importPublicKey(jwk: JsonWebKey): Promise<CryptoKey> {
   return await window.crypto.subtle.importKey(
     "jwk",
