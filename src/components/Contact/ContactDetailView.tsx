@@ -30,7 +30,7 @@ function ContactDetailView({ contact }: ContactProps) {
 
   useEffect(() => {
     async function load() {
-        if (!contact?.contactKey) return;
+      if (!contact?.contactKey) return;
 
       setDisableButton(false);
 
@@ -55,14 +55,19 @@ function ContactDetailView({ contact }: ContactProps) {
       setDisableButton(true);
       setPlaceholder("Cifraggio del messaggio in corso...");
       try {
+        // Importa chiave
         const cryptoKey = await importPublicKey(publicKey);
+
         // Cifra messaggio
         const encryptedMessage = await encryptMessage(cryptoKey, encMessage);
         const base64Message = arrayBufferToBase64(encryptedMessage);
+
+        // Imposta messaggio
         setMessageData(prev => ({
           ...prev,
           text: base64Message
         }));
+        
         // Copia negli appunti
         const type = "text/plain";
         const clipboardItemData = {
@@ -88,18 +93,13 @@ function ContactDetailView({ contact }: ContactProps) {
     setPlaceholder("Il messaggio non può essere vuoto!");
   }
 
-  async function handleDecryptMessage(privateKeyInput: CryptoKey | ContactKey, message: string) {
+  async function handleDecryptMessage(privateKeyInput: JsonWebKey, message: string) {
     if (!message) return;
 
     setDisableButton(true);
 
     try {
-      let privateKey: CryptoKey;
-      if (privateKeyInput && 'kty' in privateKeyInput && typeof privateKeyInput === 'object') {
-        privateKey = await importPrivateKey(privateKeyInput as ContactKey);
-      } else {
-        privateKey = privateKeyInput as CryptoKey;
-      }
+      const privateKey = await importPrivateKey(privateKeyInput);
       const ciphertext = base64ToArrayBuffer(message);
       const decryptedBuffer = await decryptMessage(privateKey, ciphertext);
 
@@ -109,7 +109,6 @@ function ContactDetailView({ contact }: ContactProps) {
         text: text,
         maxBytes: false,
       }));
-
     } catch (error) {
       console.error(error);
     } finally {
