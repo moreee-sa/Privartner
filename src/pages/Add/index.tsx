@@ -1,13 +1,20 @@
-import { useNavigate, useSearchParams } from "react-router";
+// Librerie esterne
 import { useState, useEffect, type FormEvent } from "react";
+import { useNavigate, useSearchParams } from "react-router";
+import { useSelector } from "react-redux";
+import '@fontsource-variable/nunito-sans';
+import { IoPersonAddSharp } from "react-icons/io5";
+
+// Moduli interni
+import { generaCoppiaChiavi } from "@/lib/crypto";
 import { addContact, addContactKey } from "@/lib/contacts";
 import { THEME } from "@/lib/constants";
+
+// Componenti
 import Navbar from "@/components/Navbar";
-import { IoPersonAddSharp } from "react-icons/io5";
 import InputForm from "@/components/Add/InputForm";
-import '@fontsource-variable/nunito-sans';
-import { generaCoppiaChiavi } from "@/lib/crypto";
-import { useSelector } from "react-redux";
+
+// Tipi
 import type { RootState } from "@/state/store";
 
 function AddContactPage() {
