@@ -61,16 +61,16 @@ function AddContactPage() {
   const createContact = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!keyPair) {
+    if (!keyPair?.publicKey || !keyPair?.privateKey) {
       console.error("Nessuna coppia di chiavi disponibile!");
       return;
     }
 
     const contactKey = addContactKey(keyContact);
-    const newContactId = addContact(nameContact, descriptionContact, keyPair as CryptoKeyPair, contactKey);
+    const newContactId = addContact(nameContact, descriptionContact, { publicKey: keyPair.publicKey, privateKey: keyPair.privateKey }, contactKey);
 
     console.log("Contatto aggiunto!", newContactId);
-    navigate(`/`);
+    navigate(`/contact/${newContactId}`);
   };
 
   return (
