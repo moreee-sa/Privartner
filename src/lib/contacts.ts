@@ -2,7 +2,7 @@ export type Contact = {
   id: string;
   name: string;
   description: string;
-  keys: CryptoKeyPair;
+  keys: { publicKey: JsonWebKey; privateKey: JsonWebKey };
   contactKey: ContactKey;
 };
 
@@ -24,7 +24,7 @@ export function saveContacts(contacts: Contact[]) {
   localStorage.setItem("contacts", JSON.stringify(contacts));
 }
 
-export function addContact(name: string, description: string, jwkPair: CryptoKeyPair, contactKey: ContactKey) {
+export function addContact(name: string, description: string, jwkPair: { publicKey: JsonWebKey; privateKey: JsonWebKey }, contactKey: ContactKey) {
   const contacts = loadContacts();
   const contactId = crypto.randomUUID();
 
