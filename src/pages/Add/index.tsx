@@ -7,36 +7,49 @@ import { IoPersonAddSharp } from "react-icons/io5";
 import InputForm from "@/components/Add/InputForm";
 import '@fontsource-variable/nunito-sans';
 import { generaCoppiaChiavi } from "@/lib/crypto";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/state/store";
 
 function AddContactPage() {
+  // React router / hooks
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const contactKeyFromUrl = searchParams.get("key") || "";
 
+  // Form fields
   const [nameContact, setNameContact] = useState("");
   const [descriptionContact, setDescriptionContact] = useState("");
   const [keyContact, setKeyContact] = useState(contactKeyFromUrl);
-  const [keyPair, setKeyPair] = useState<{ publicKey: JsonWebKey; privateKey: JsonWebKey } | null>(null);
-  
+
+  // Key pair
+  const [keyPair, setKeyPair] = useState<{ publicKey: JsonWebKey | null; privateKey: JsonWebKey | null } | null>(null);
+
+  // UI state
+  const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(true);
+
+  // Redux selectors
+  const jwkPair = useSelector((state: RootState) => state.keypair);
+
   useEffect(() => {
     async function load() {
-      const savedPair = localStorage.getItem("lastPairKey");
-      if (savedPair) {
-        const jwkPair = JSON.parse(savedPair);
-        console.log("Chiave salvata trovata:", jwkPair);
-        setKeyPair(jwkPair);
-      } else {
-        const newPair = await generaCoppiaChiavi();
-        console.log("Nuova coppia di chiavi generata:", newPair);
-        const pubJwk = await crypto.subtle.exportKey("jwk", newPair.publicKey);
-        const privJwk = await crypto.subtle.exportKey("jwk", newPair.privateKey);
-        const jwkPair = { publicKey: pubJwk, privateKey: privJwk };
-        setKeyPair(jwkPair);
+      try {
+        if (jwkPair.publicKey && jwkPair.privateKey) {
+          setKeyPair(jwkPair);
+        } else {
+          const newPair = await generaCoppiaChiavi();
+          const pubJwk = await crypto.subtle.exportKey("jwk", newPair.publicKey);
+          const privJwk = await crypto.subtle.exportKey("jwk", newPair.privateKey);
+          const jwkPair = { publicKey: pubJwk, privateKey: privJwk };
+          setKeyPair(jwkPair);
+        }
+        setIsAddButtonDisabled(false);
+      } catch (err) {
+        console.error("Errore:", err)
       }
     }
     
     load();
-  }, []);
+  }, [jwkPair]);
 
   const createContact = (e: FormEvent) => {
     e.preventDefault();
@@ -94,8 +107,9 @@ function AddContactPage() {
 
           <button
             type="submit"
-            className="rounded-lg w-full h-16 flex items-center justify-center gap-5 opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
+            className={`rounded-lg w-full h-16 flex items-center justify-center gap-5 transition-opacity ${isAddButtonDisabled ? "opacity-25 cursor-not-allowed" : "opacity-80 hover:opacity-100 cursor-pointer"}`}
             style={{ backgroundColor: THEME.button }}
+            disabled={isAddButtonDisabled}
           >
             <IoPersonAddSharp
               className="text-base md:text-lg lg:text-xl"
