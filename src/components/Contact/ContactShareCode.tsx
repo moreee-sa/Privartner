@@ -22,7 +22,7 @@ function ContactShareCode({ name, code }: ShareCodeProps) {
         <input
           className="w-full h-full rounded-md px-4 py-2 flex"
           style={{
-            color: THEME.text,
+            color: THEME.textSecondary,
             fontFamily: "'Nunito Sans Variable', sans-serif",
             boxShadow: "inset 0px 12px 25px -3px rgba(0, 0, 0, 0.25)",
           }}
