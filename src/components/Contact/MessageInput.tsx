@@ -1,4 +1,5 @@
 import { THEME } from "@/lib/constants";
+import { useState, useRef } from "react";
 
 interface MessageProps {
   maxBytes: boolean;
@@ -10,11 +11,22 @@ interface MessageProps {
 
 function MessageInput({ maxBytes, placeholder, text, byteLength, handleMessageLength }: MessageProps) {
   const MAX_RSA_OAEP_BYTES = 400;
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [focused, setFocused] = useState(false);
+
+  function focusTextArea() {
+    textAreaRef.current?.focus();
+    setFocused(true);
+  }
 
   return (
-    <>
+    <div
+      className={`outline  rounded-lg ${focused ? "outline-[#969593]" : "outline-[#323031]"} transition-all p-5 w-full`}
+      onClick={focusTextArea}
+      onMouseLeave={() => setFocused(false)}
+    >
       <textarea
-        className="outline outline-[#323031] rounded-lg focus:outline-[#969593] transition-all p-5 w-full resize-none field-sizing-content"
+        className="outline-none transition-all w-full resize-none field-sizing-content"
         style={{
           color: maxBytes ? "#FF2C2C" : THEME.text,
           fontFamily: "'Nunito Sans Variable', sans-serif",
@@ -22,6 +34,7 @@ function MessageInput({ maxBytes, placeholder, text, byteLength, handleMessageLe
         placeholder={placeholder}
         value={text}
         onChange={(e) => handleMessageLength(e)}
+        ref={textAreaRef}
       />
       <div className="flex justify-end">
         <span
@@ -31,7 +44,7 @@ function MessageInput({ maxBytes, placeholder, text, byteLength, handleMessageLe
           {byteLength}/{MAX_RSA_OAEP_BYTES} bytes
         </span>
       </div>
-    </>
+    </div>
   )
 }
 
