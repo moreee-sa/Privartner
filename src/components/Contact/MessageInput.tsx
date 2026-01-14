@@ -35,7 +35,7 @@ function MessageInput({ maxBytes, placeholder, text, byteLength, handleMessageLe
       <div className="flex justify-end">
         <span
           className="transition-colors"
-          style={{ color: maxBytes ? "#FF2C2C" : THEME.text, fontFamily: "'Nunito Sans Variable', sans-serif", }}
+          style={{ color: maxBytes ? "#FF2C2C" : THEME.textSecondary, fontFamily: "'Nunito Sans Variable', sans-serif", }}
         >
           {byteLength}/{MAX_RSA_OAEP_BYTES} bytes
         </span>
