@@ -35,7 +35,7 @@ function MyShareCode({ code }: ShareCodeProps) {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-3">
       <span
         className="text-2xl"
         style={{
@@ -47,7 +47,7 @@ function MyShareCode({ code }: ShareCodeProps) {
       </span>
       <div className="flex gap-2 items-center w-full h-12 md:h-14">
         <input
-          className="w-full h-full rounded-md px-4 py-2 flex"
+          className="w-full h-full rounded-2xl px-4 py-2 flex"
           style={{
             color: THEME.textSecondary,
             fontFamily: "'Nunito Sans Variable', sans-serif",
