@@ -14,16 +14,10 @@ function MessageInput({ maxBytes, placeholder, text, byteLength, handleMessageLe
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [focused, setFocused] = useState(false);
 
-  function focusTextArea() {
-    textAreaRef.current?.focus();
-    setFocused(true);
-  }
-
   return (
     <div
       className={`outline  rounded-lg ${focused ? "outline-[#969593]" : "outline-[#323031]"} transition-all p-5 w-full`}
-      onClick={focusTextArea}
-      onMouseLeave={() => setFocused(false)}
+      onClick={() => textAreaRef.current?.focus()}
     >
       <textarea
         className="outline-none transition-all w-full resize-none field-sizing-content"
@@ -34,6 +28,8 @@ function MessageInput({ maxBytes, placeholder, text, byteLength, handleMessageLe
         placeholder={placeholder}
         value={text}
         onChange={(e) => handleMessageLength(e)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         ref={textAreaRef}
       />
       <div className="flex justify-end">
