@@ -22,7 +22,7 @@ function MessageInput({ maxBytes, placeholder, text, byteLength, handleMessageLe
       <textarea
         className="outline-none transition-all w-full resize-none field-sizing-content"
         style={{
-          color: maxBytes ? "#FF2C2C" : THEME.text,
+          color: maxBytes ? THEME.textError : THEME.text,
           fontFamily: "'Nunito Sans Variable', sans-serif",
         }}
         placeholder={placeholder}
@@ -35,7 +35,7 @@ function MessageInput({ maxBytes, placeholder, text, byteLength, handleMessageLe
       <div className="flex justify-end">
         <span
           className="transition-colors"
-          style={{ color: maxBytes ? "#FF2C2C" : THEME.textSecondary, fontFamily: "'Nunito Sans Variable', sans-serif", }}
+          style={{ color: maxBytes ? THEME.textError : THEME.textSecondary, fontFamily: "'Nunito Sans Variable', sans-serif", }}
         >
           {byteLength}/{MAX_RSA_OAEP_BYTES} bytes
         </span>
