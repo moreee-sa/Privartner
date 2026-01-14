@@ -58,7 +58,7 @@ function MyShareCode({ code }: ShareCodeProps) {
           disabled
         />
         <button
-          className="shrink-0 rounded-lg min-w-12 min-h-12 md:min-w-14 md:min-h-14 flex items-center justify-center opacity-80 hover:opacity-100 transition-all duration-500 cursor-pointer"
+          className="shrink-0 rounded-2xl min-w-12 min-h-12 md:min-w-14 md:min-h-14 flex items-center justify-center opacity-80 hover:opacity-100 transition-all duration-500 cursor-pointer"
           style={{ backgroundColor: copied ? THEME.successful : THEME.button }}
           onClick={ShareCode}
         >
