@@ -140,7 +140,7 @@ function ContactDetailView({ contact }: ContactProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-8">
       <ContactHeader name={contact?.name} description={contact?.description} id={contact?.id} />
       <MyShareCode code={personalKey} />
       <ContactShareCode name={contact?.name} code={contactKey} />
@@ -154,8 +154,17 @@ function ContactDetailView({ contact }: ContactProps) {
       />
       
       <div className="flex gap-2">
-        <CryptoActionButton actionText="Mostra" disableButton={disableButton} handleClick={() => contact?.keys && handleDecryptMessage(contact.keys.privateKey, messageData.text)} />
-        <CryptoActionButton actionText="Nascondi" disableButton={disableButton} handleClick={() => contact?.contactKey && handleEncryptMessage(contact.contactKey, messageData.text)} />
+        <CryptoActionButton
+          actionText="Mostra"
+          disableButton={disableButton}
+          handleClick={() => contact?.keys && handleDecryptMessage(contact.keys.privateKey, messageData.text)}
+          isDecrypt
+        />
+        <CryptoActionButton
+          actionText="Nascondi"
+          disableButton={disableButton}
+          handleClick={() => contact?.contactKey && handleEncryptMessage(contact.contactKey, messageData.text)}
+        />
       </div>
     </div>
   )
