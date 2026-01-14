@@ -16,7 +16,7 @@ function MessageInput({ maxBytes, placeholder, text, byteLength, handleMessageLe
 
   return (
     <div
-      className={`outline  rounded-lg ${focused ? "outline-[#969593]" : "outline-[#323031]"} transition-all p-5 w-full`}
+      className={`outline rounded-2xl ${focused ? "outline-[#969593]" : "outline-[#323031]"} transition-all p-5 w-full`}
       onClick={() => textAreaRef.current?.focus()}
     >
       <textarea
