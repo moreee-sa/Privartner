@@ -14,7 +14,7 @@ function MyShareCode({ code }: ShareCodeProps) {
       const url = `https://privartner.netlify.app/#/add?key=${code}`;
       const type = "text/plain";
       const clipboardItemData = {
-        [type]: url,
+        [type]: code,
       };
       const clipboardItem = new ClipboardItem(clipboardItemData);
       await navigator.clipboard.write([clipboardItem]);
