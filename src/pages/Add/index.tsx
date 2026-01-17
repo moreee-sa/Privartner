@@ -82,7 +82,7 @@ function AddContactPage() {
         <Navbar />
         <form
           onSubmit={createContact}
-          className="flex flex-col gap-5 p-5 rounded-lg"
+          className="flex flex-col gap-5 p-5 rounded-2xl"
           style={{ backgroundColor: THEME.form }}
         >
           <InputForm
@@ -114,7 +114,7 @@ function AddContactPage() {
 
           <button
             type="submit"
-            className={`rounded-lg w-full h-16 flex items-center justify-center gap-5 transition-opacity ${isAddButtonDisabled ? "opacity-25 cursor-not-allowed" : "opacity-80 hover:opacity-100 cursor-pointer"}`}
+            className={`rounded-2xl w-full h-16 flex items-center justify-center gap-5 transition-opacity ${isAddButtonDisabled ? "opacity-25 cursor-not-allowed" : "opacity-80 hover:opacity-100 cursor-pointer"}`}
             style={{ backgroundColor: THEME.button }}
             disabled={isAddButtonDisabled}
           >
