@@ -27,6 +27,7 @@ function ContactDetailView({ contact }: ContactProps) {
   const [contactKey, setContactKey] = useState("");
   const [personalKey, setPersonalKey] = useState("");
   const [disableButton, setDisableButton] = useState(true);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -139,11 +140,43 @@ function ContactDetailView({ contact }: ContactProps) {
     }
   }
 
+  const handleContactKey = (contactKeyValue: string) => {
+    setContactKey(contactKeyValue);
+  };
+
+  const saveContactKey = () => {
+    try {
+      if (!contact) return;
+  
+      const stored: Contact[] = JSON.parse(localStorage.getItem("contacts") ?? "[]");
+  
+      const index = stored.findIndex(c => c.id === contact.id);
+      if (index === -1) return;
+  
+      stored[index].contactKey.n = contactKey.trim();
+  
+      localStorage.setItem("contacts", JSON.stringify(stored));
+      setSaved(true);
+      setTimeout(() => {
+        setSaved(false);
+      }, 1000);
+    } catch (error) {
+      console.error("Errore salvataggio chiave contatto:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-8">
       <ContactHeader name={contact?.name} description={contact?.description} id={contact?.id} />
       <MyShareCode code={personalKey} />
-      <ContactShareCode name={contact?.name} code={contactKey} />
+      
+      <ContactShareCode
+        name={contact?.name}
+        code={contactKey}
+        handleContactKey={handleContactKey}
+        handleSaveContactKey={saveContactKey}
+        saved={saved}
+      />
 
       <MessageInput
         maxBytes={messageData.maxBytes}
