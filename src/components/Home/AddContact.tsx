@@ -6,7 +6,7 @@ function AddContact() {
   return (
     <Link
       to="/add"
-      className="rounded-lg w-full h-16 flex items-center justify-center gap-5 opacity-80 hover:opacity-100 transition-opacity"
+      className="rounded-2xl w-full h-16 flex items-center justify-center gap-5 opacity-80 hover:opacity-100 transition-opacity"
       style={{ backgroundColor: THEME.button }}
     >
       <IoPersonAddSharp

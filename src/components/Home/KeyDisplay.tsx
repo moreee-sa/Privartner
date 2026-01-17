@@ -9,7 +9,7 @@ interface KeyDisplayProps {
 function KeyDisplay({chiave, handleClick}: KeyDisplayProps) {
   return (
     <div
-      className="w-full rounded-md px-4 py-2 flex gap-2 justify-between"
+      className="w-full rounded-2xl px-4 py-2 flex gap-2 justify-between"
       style={{ boxShadow: 'inset 0px 12px 25px -3px rgba(0, 0, 0, 0.25)' }}
     >
       <div className="flex items-center overflow-hidden text-nowrap mask-[linear-gradient(to_right,black_50%,transparent)] mask-size-[100%_100%]">

@@ -11,7 +11,7 @@ function ContactListItem({ contact }: ContactProps) {
   return (
     <Link to={`/contact/${contact.id}`}>
       <div
-        className="flex items-center justify-start gap-4 p-5 rounded-lg opacity-80 hover:opacity-100 transition-opacity"
+        className="flex items-center justify-start gap-4 p-5 rounded-2xl opacity-80 hover:opacity-100 transition-opacity"
         style={{ backgroundColor: THEME.button }}
       >
         <MdAccountCircle size={30} color={THEME.text} />
