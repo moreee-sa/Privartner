@@ -30,23 +30,22 @@ function ContactDetailView({ contact }: ContactProps) {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    async function load() {
+    const loadContact = () => {
       if (!contact?.contactKey) return;
-
       setDisableButton(false);
-
+    
       // Chiave Contatto
       const cpubJwkString = JSON.stringify(contact.contactKey);
-      const cpbk = await getPublicKeyStringRSA(cpubJwkString);
+      const cpbk = getPublicKeyStringRSA(cpubJwkString);
       setContactKey(cpbk);
       
       // Chiave Utente
       const ppubJwkString = JSON.stringify(contact.keys);
-      const ppbk = await getPublicKeyStringRSA(ppubJwkString);
+      const ppbk = getPublicKeyStringRSA(ppubJwkString);
       setPersonalKey(ppbk);
     }
 
-    load();
+    loadContact();
   }, [contact]);
   
   async function handleEncryptMessage(publicKey: ContactKey, message: string) {
