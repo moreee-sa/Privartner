@@ -111,6 +111,10 @@ function ContactDetailView({ contact }: ContactProps) {
       }));
     } catch (error) {
       console.error(error);
+      setMessageData(prev =>({
+        ...prev,
+        maxBytes: true,
+      }));
     } finally {
       setDisableButton(false);
     }
