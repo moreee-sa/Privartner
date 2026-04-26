@@ -20,3 +20,6 @@ Privartner ti permette di aggiungere un livello di crittografia a qualsiasi app 
 - **Mostra il messaggio**: Decifra i messaggi ricevuti usando la tua chiave privata.
 - **Zero dipendenze crittografiche esterne**: Utilizza esclusivamente le **Web Crypto API** native del browser.
 - **Tutto in locale**: Nessun account richiesto, nessun cloud. I tuoi dati restano sul tuo dispositivo.
+
+## License
+This project is licensed under the **[GPL v3.0](https://github.com/moreee-sa/Privartner/blob/main/LICENSE)**. © 2026 moreee-sa
